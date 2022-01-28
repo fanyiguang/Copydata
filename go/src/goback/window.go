@@ -1,11 +1,13 @@
 package goback
 
 import (
-	"github.com/chenfeng/goback/win"
+	"goback/go/src/goback/win"
 	"log"
 	"syscall"
-	"unicode/utf16"
 	"unsafe"
+	//
+	//"golang.org/x/text/encoding/unicode"
+	//"golang.org/x/text/transform"
 )
 
 var (
@@ -155,14 +157,14 @@ func (p *BackWnd) SetStartState(state bool) {
 }
 
 func uintptrToString(cstr uintptr) string {
+	var msg = make([]byte, 0)
 	if cstr != 0 {
-		us := make([]uint16, 0, 256)
-		for p := cstr; ; p += 2 {
-			u := *(*uint16)(unsafe.Pointer(p))
+		for p := cstr; ; p += 1 {
+			u := *(*uint8)(unsafe.Pointer(p))
 			if u == 0 {
-				return string(utf16.Decode(us))
+				return string(msg)
 			}
-			us = append(us, u)
+			msg = append(msg, u)
 		}
 	}
 	return ""

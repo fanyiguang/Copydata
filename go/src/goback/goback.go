@@ -42,7 +42,7 @@ func (p *BackServer) Push(data string) {
 }
 
 func (p *BackServer) Accept(ldata interface{}) {
-	log.Println("Accept message is:", ldata.(string))
+	//log.Println("Accept message is:", ldata.(string))
 	params := ldata.(string)
 	p.BufCh <- ([]byte)(params)
 }
