@@ -26,7 +26,7 @@ func main() {
 				return
 			}
 
-			fmt.Println("转码前结果:", string(gbkMsg))
+			fmt.Println("转码后结果:", string(gbkMsg))
 		}
 		close(obj.BufCh)
 	}()
