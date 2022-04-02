@@ -1,6 +1,6 @@
 ### 改动说明
 
-因为之前工作上有使用copydata的需求所以找到了这个库，但是使用的时候发现接收数据时会乱码，所以做了编码的处理。之后又发现之前的版本会阻塞协成没有释放方法不符合我的使用需求，然后补上了退出的方法：
+因为之前工作上有使用copydata的需求所以找到了这个库，但是使用的时候发现接收数据时会乱码，所以做了编码的处理。之后又发现之前的版本会阻塞协成没有退出的方法不符合我的使用需求，就研究了一下补上了退出的方法：
 ```go
 func (p *BackWnd) SendThreadCloseMessage(idThread uint32) {
 	win.PostThreadMessage(idThread, win.WM_QUIT, 0, 0)
