@@ -36,6 +36,14 @@ func Wait() {
 	backsev.backWnd.WaitMessage()
 }
 
+func SyncWait(quitCh chan int) {
+	backsev.backWnd.SyncWaitMessage(quitCh)
+}
+
+func SendThreadCloseMessage(idThread uint32) {
+	backsev.backWnd.SendThreadCloseMessage(idThread)
+}
+
 func (p *BackServer) Push(data string) {
 	p.backWnd.SendSyn(data)
 	log.Println("Push message is:", data)

@@ -1,6 +1,7 @@
 package goback
 
 import (
+	"fmt"
 	"goback/go/src/goback/win"
 	"log"
 	"syscall"
@@ -97,7 +98,7 @@ func (p *BackWnd) regist(style uint) {
 	wc.LpszClassName = syscall.StringToUTF16Ptr(CLASSNAME)
 
 	if atom := win.RegisterClassEx(&wc); atom == 0 {
-		panic("RegisterClassEx")
+		log.Println(fmt.Sprintf("win.RegisterClassEx(&wc) failed: %v", atom))
 	}
 }
 
@@ -133,6 +134,29 @@ func (p *BackWnd) WaitMessage() {
 			break
 		}
 	}
+}
+
+func (p *BackWnd) SyncWaitMessage(quitCh chan int) {
+	var msg win.MSG
+	for {
+		select {
+		case <-quitCh:
+			win.PostQuitMessage(0)
+			log.Println("win.PostQuitMessage send")
+		default:
+			_ = win.PeekMessage(&msg, 0, 0, 0, 1)
+			win.TranslateMessage(&msg)
+			win.DispatchMessage(&msg)
+			if msg.Message == win.WM_QUIT {
+				log.Println("accept wm_quit message")
+				return
+			}
+		}
+	}
+}
+
+func (p *BackWnd) SendThreadCloseMessage(idThread uint32) {
+	win.PostThreadMessage(idThread, win.WM_QUIT, 0, 0)
 }
 
 func (p *BackWnd) SendSyn(data string) {
