@@ -29,7 +29,7 @@ func (p *BackWnd) SyncWaitMessage(quitCh chan int) {
     }
 }
 ```
-因为好奇就多研究了一下，其实两种功能上没啥区别，一定要说区别的话就是前者是在其他协成发出的关闭消息，而后者是在同一个协成发送的关闭消息了。具体的可以看看这个[用例](https://github.com/fanyiguang/Copydata/blob/master/go/src/example/main.go)
+因为好奇就多研究了一下，其实两种功能上没啥区别，一定要说区别的话就是前者是在其他协成发出的关闭消息，而后者是在同一个协成发送的关闭消息了（我理解为同步和异步:)）。具体的可以看看这个[用例](https://github.com/fanyiguang/Copydata/blob/master/go/src/example/main.go)
 
 其他的就不多说了下面两个仓库里面都有：
 1. [chenfeng8742](https://github.com/chenfeng8742/goback)
