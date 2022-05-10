@@ -1,8 +1,8 @@
 package goback
 
 import (
+	"copydata/go/src/goback/win"
 	"fmt"
-	"goback/go/src/goback/win"
 	"log"
 	"syscall"
 	"unsafe"
